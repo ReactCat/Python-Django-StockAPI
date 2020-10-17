@@ -1,0 +1,96 @@
+{% extends 'marketdata/base.html' %}
+
+{% load static %}
+
+{% block title  %}
+Stock Market Data
+{% endblock  %}
+
+{% block content %}
+
+<br><br>
+<br><br>
+<div class="container">
+    <div class="row">
+        <div class="col s12 m8 l4">
+
+<h5>Add Stock </h5>
+<form action="{% url 'addstock' %}" method="POST">
+    {% csrf_token %}
+    <div class="input-field">
+        <input name="stockticker" id="stockname" type="text" class="validate">
+        <label class="active" for="stockname">Stock Name</label>
+    </div>
+  </form>
+</div>
+</div>
+<br><br>
+<div class="row">
+    <div class="col s12 m8 l12">
+        <h5>List All Stocks </h5>
+  <table class="striped">
+    <thead>
+      <tr>
+          <th>Company Name</th>
+          <th>Stock Price </th>
+          <th>Previous Close</th>
+          <th>Market Cap Value</th>
+          <th>YTD Change</th>
+          <th>52 Week High</th>
+          <th>52 Week Low</th>
+         
+
+      </tr>
+    </thead>
+
+    <tbody>
+        {% if stockticker %}
+       
+        
+            {% for list_item in output %}
+            <tr>
+                <td>{{ list_item.companyName  }}</td> 
+                <td>${{ list_item.latestPrice }}</td> 
+                <td>${{ list_item.previousClose }}</td>
+                <td>${{ list_item.stockapi.marketCap }}</td>
+                <td>{{ list_item.ytdChange }}%</td>
+                <td>${{ list_item.week52High }}</td>
+                <td>${{ list_item.week52Low }}</td>
+                
+            </tr>
+            {% endfor %}
+        
+        
+
+
+{% endif %}
+
+
+     
+      
+    </tbody>
+  </table>
+
+
+
+
+
+<br><br>
+
+
+
+
+</div>
+</div>
+</div>
+
+
+
+
+
+    
+
+<br><br>
+<br><br>
+
+{% endblock  %}

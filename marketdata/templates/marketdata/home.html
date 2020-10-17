@@ -1,0 +1,72 @@
+
+{% extends 'marketdata/base.html' %}
+
+{% load static %}
+
+{% block title  %}
+Stock Market Data
+{% endblock  %}
+
+{% block content %}
+
+<br><br>
+<br><br>
+<div class="container">
+
+    
+
+
+
+{% if stockticker %}
+    {{ stockticker }}
+{% endif %}
+
+
+{% if stockapi %}
+    {% if stockapi == "Error..." %}
+        There is no data for this stock
+    {% else %}
+    <h4 class="orange-text">{{ stockapi.companyName }}</h4>
+    <br><br>
+
+    <table class="striped">
+        <thead>
+          <tr>
+              <th>Company Name</th>
+              <th>Stock Price </th>
+              <th>Previous Close</th>
+              <th>Market Cap Value</th>
+              <th>YTD Change</th>
+              <th>52 Week High</th>
+              <th>52 Week Low</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>{{ stockapi.companyName }}</td>
+            <td>{{ stockapi.latestPrice }}</td>
+            <td>{{ stockapi.previousClose }}</td>
+            <td>{{ stockapi.stockapi.marketCap }}</td>
+            <td>{{ stockapi.ytdChange }}</td>
+            <td>{{ stockapi.week52High }}</td>
+            <td>{{ stockapi.week52Low }}</td>
+          </tr>
+          
+        </tbody>
+      </table>
+
+           
+    {% endif %}
+{% else %}
+{% endif %}
+
+
+
+
+
+<br><br>
+<br><br>
+</div>
+{% endblock  %}
+
